@@ -1,0 +1,151 @@
+{% include 'system/header.phtml' %}
+{% include 'system/left-panel.phtml' %}
+{% include 'system/header-menu.phtml' %}
+
+<div class="animated fadeIn">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong class="card-title">Aqui você cadastra ou atualiza dados de um departamento, setor ou simular.</strong>
+                </div>
+                    <div class="card-body">
+                    
+                    	{% if page.message %}
+                    		<div class="alert alert-{{page.message.type}}" role="alert">
+                            	{{page.message.message}}
+                            	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                	<span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                    	{% endif %}
+                    
+                        <form method="post" autocomplete="off" action="/department/save" id="easyForm" data-toggle="validator" role="form">
+                        <input type="hidden" name="id" value="{{page.dataset.id}}">
+                        <input type="hidden" name="company" value="{{user.company}}">
+                		<div class="card">
+                          <div class="card-header">
+                            <strong>Departamento</strong>
+                          </div>
+                          <div class="card-body card-block">
+                             <div class="row form-group">
+                        		<div class="col">
+                        			<label for="name" class="form-control-label">Nome:</label>
+                        			<input type="text" name="name" id="name" placeholder="Nome do departamento" class="form-control" value="{{page.dataset.name}}" required>
+                        		</div>
+                      		</div>
+                          	<div class="row form-group">
+                        		<div class="col">
+									<label for="description" class="form-control-label">Descrição:</label>
+									<textarea data-autoresize name="description" id="description"  class="form-control" placeholder="Descreva as atribuições do departamento"  >{{page.dataset.description}}</textarea>
+								</div>
+                      		</div> 
+                         	
+                    	</div>
+                    	<div class="card-footer text-right">
+                            	<button type="submit" class="btn btn-primary btn-sm">
+                              		<i class="fa fa-dot-circle-o"></i> Salvar
+                            	</button>
+                         	</div>
+                    </div>
+                    </form>
+                    {% if page.dataset.id %}
+                                        
+                    <form method="post" action="/process/savebydepartment" id="easyForm" data-toggle="validator" role="form">
+                        <input type="hidden" name="department" value="{{page.dataset.id}}">
+                        <input type="hidden" name="company" value="{{user.company}}">
+                		<div class="card">
+                          <div class="card-header">
+                            <strong>Procedimentos</strong>
+                          </div>
+                          <div class="row form-group">
+                         {% for process in page.process  %}
+
+                        		<div class="col-lg-6" style="margin-top: 10px;">
+                        			<button type="button" class="btn btn-danger btn" style="margin-left: 20px;" onclick='location.href="{{ constant('SYS_URL') }}/process/delbydepartment/{\"id\":{{process.id}},\"department\":{{page.dataset.id}}}"'>
+                                      <i class="fa fa-trash-o"></i>
+                                    </button>
+                        			<a href="{{ constant('SYS_URL') }}/process/form/{{process.id}}" title="Edição completa deste procedimento.">{{process.name}}</a>
+                        		</div>
+                      		
+                      		
+                    	 {% endfor %}
+                    	 </div>
+                      		
+                          
+                          <div class="card-body card-block" id="process-form">
+                             <div class="row form-group">
+                        		<div class="col">
+                        			<input type="text" name="process[]" id="process" placeholder="Nome do procedimento" class="form-control col-sm-11 float-left">
+                        			<button type="button" id="new-process" class="btn btn-success btn" style="margin-left: 20px;">
+                                      <i class="fa fa-plus-circle"></i>
+                                    </button>
+                        		</div>
+                      		</div>
+                    	</div>
+                    	<div class="card-footer text-right">
+                            	<button type="submit" class="btn btn-primary btn-sm">
+                              		<i class="fa fa-dot-circle-o"></i> Salvar
+                            	</button>
+                         	</div>
+                    </div>
+                    </form>
+                    {% endif %}
+                </div>     
+            </div>
+           </div>
+        </div>
+    </div>
+  </div><!-- .animated -->
+</div><!-- .content -->
+
+
+
+<script src="{{ constant('SYS_URL') }}assets/js/validator.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/easyform.js"></script>
+
+<script>
+jQuery(function ($) {
+
+
+	jQuery.each(jQuery('textarea[data-autoresize]'), function() {
+	    var offset = this.offsetHeight - this.clientHeight;
+	 
+	    var resizeTextarea = function(el) {
+	        jQuery(el).css('height', 'auto').css('height', el.scrollHeight + offset);
+	    };
+	    jQuery(this).on('keyup input', function() { resizeTextarea(this); }).removeAttr('data-autoresize');
+	});
+
+	//ADD and remove process
+	
+	var processForm = $("#process-form");
+	var i = $('#process-form div.row').size() + 1;
+
+	//add
+	$("#new-process").click(function(){
+		
+		$('<div class="row form-group"><div class="col"><input type="text" name="process[]" placeholder="Nome do processo" class="form-control col-sm-11 float-left"><button type="button" class="btn btn-danger btn" style="margin-left: 20px;"><i class="fa fa-trash-o"></i></button></div></div>').appendTo(processForm);
+  		i++;
+        return false;
+	});	
+
+	//remove
+	$(processForm).on("click",".btn-danger", function(e){ 
+		e.preventDefault(); 
+		$(this).parent('div').parent('div').remove(); 
+		i--;
+	});
+
+
+	//Set department form
+	var dataSet = {{page.dataset|json_encode()|raw}};
+	
+	EasyForm.init(dataSet);	
+	$('#easyForm').validator();
+});	
+</script>
+
+
+{% include 'system/footer.phtml' %}

@@ -1,0 +1,85 @@
+{% include 'system/header.phtml' %}
+{% include 'system/left-panel.phtml' %}
+{% include 'system/header-menu.phtml' %}
+
+<div class="animated fadeIn">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong class="card-title">Aqui você gerência departamentos, setores ou simulares</strong>
+                    <span class="float-right ">
+                    <span class="fa fa-warning"></span> Clique sobre a linha desejada para habilitar os botões de editar e excluir.
+                    <br><span class="fa fa-lightbulb-o"></span> Para selecionar mais de um registro segure a tecla Ctrl/Cmd ao clicar.</span>
+                </div>
+            <div class="card-body">
+            {% if page.message.message %}
+                <div class="alert alert-{{page.message.type}}" role="alert">
+                    {{page.message.message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+                        
+                <table class="table table-striped table-bordered" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+           </div>
+        </div>
+    </div>
+  </div><!-- .animated -->
+</div><!-- .content -->
+
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/datatables.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/jszip.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/pdfmake.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/vfs_fonts.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/buttons.html5.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/buttons.print.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/buttons.colVis.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/dataTables.select.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/datatables-init.js"></script>
+<script>
+
+//     Tabela que receberá o DataTable
+    var dataTable   =   "#dataTable";
+
+//     Informações que irão popular o DataSet em formato JSON
+    var dataSet =   {{page.dataset|json_encode()|raw}};
+    
+//     Mapeamento das colunas(ordem) com as informaçõs(nome) do DataSet que serão apresentadas 
+    var columns =   [
+                        { data: "name" },
+                        { data: "description" }
+                    ];
+    
+//     Náo  mostrar botões
+//     var dataTableButtons = [];
+    
+    
+    $(document).ready(function() {
+        EasyDataTable.pk = "id";
+        
+//         Alterar açõs dos btões padrão
+//         EasyDataTable.addPath = window.location.href+"/adicionar/";
+//         EasyDataTable.editPath= window.location.href+"/editar/id/";
+//         EasyDataTable.delPath = window.location.href+"/deletar/ids/";
+
+        EasyDataTable.init();
+    } );
+
+</script>
+<script src="{{ constant('SYS_URL') }}assets/js/easydatatable.js"></script>
+
+{% include 'system/footer.phtml' %}

@@ -1,0 +1,133 @@
+		<div class="breadcrumbs">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Bem vindo!</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li class="active">Início</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sufee-alert alert with-close alert-warning alert-dismissible fade show">
+            <span class="badge badge-pill badge-warning">Atenção</span>
+               Esta é uma versão Beta do sistema e está sujeito a falhas e mudanças.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="content mt-3">
+
+            <div class="col">
+               
+                <div class="col-lg-6">
+                <div class="card" >   
+                    <div class="card-header">
+                            <h4>INFORMAÇÕES - {{ page.name }}</h4>
+                        </div>    
+                    <div class="card-group">
+                            <div class="card col-md-6 no-padding ">
+                                <div class="card-body">
+                                    <div class="h1 text-muted text-right mb-4">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+
+                                    <div class="h4 mb-0">
+                                        <span class="count">{{ page.total }}</span>
+                                    </div>
+
+                                    <small class="text-muted text-uppercase font-weight-bold">Colaboradores</small>
+                                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-1" style="width: 40%; height: 5px;"></div>
+                                </div>
+                            </div>
+                            <div class="card col-md-6 no-padding ">
+                                <div class="card-body">
+                                    <div class="h1 text-muted text-right mb-4">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                    <div class="h4 mb-0">{{ page.expire|date("d/m/Y") }}</div>
+                                    <small class="text-muted text-uppercase font-weight-bold">Expira em</small>
+                                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-4" style="width: 40%; height: 5px;"></div>
+                                </div>
+                            </div>
+                            <div class="card col-md-6 no-padding ">
+                                <div class="card-body">
+                                    <div class="h1 text-muted text-right mb-4">
+                                        <i class="ti-money"></i>
+                                    </div>
+                                    <div class="h4 mb-0">
+                                        <span class="count">
+                                            <span style="text-decoration:line-through;color:red;">R$15,00</span>
+                                        </span>
+                                        
+                                    </div>
+                                    <small class="text-muted text-uppercase font-weight-bold">Plano mensal</small>
+                                    <div class="progress progress-xs mt-3 mb-0 bg-flat-color-5" style="width: 40%; height: 5px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>                    
+
+                    <div class="card" >
+                        <div class="card-header">
+                            <h4>TUTORIAL</h4>
+                        </div>
+                        <div class="card-body">
+                            <p><b>Está com dúvidas de como utilizar este sistema?</b></p>
+                            <a href="./tutorial.pdf" target="_blank">
+                            <div style="border: 2px solid #878787;border-radius: 5px;text-align:center;padding:10px;width:270px;margin: auto;"> 
+                                <i class="fa fa-download" style="font-size:200px;"></i>
+                                <p>Baixe aqui o tutorial do sistema.</p>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>   
+                <!-- /# card --> 
+                <div class="col-lg-6">
+                    <div class="card" >
+                        <div class="card-header">
+                            <h4>VERSÁTIL</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="typo-articles">
+    <p>O sistema versátil foi desenvolvido com o proposito de ajudar os gestores de todas as áreas da empresa na implementação
+    de uma sistemática padronizada de capacitação dos funcionários que executam procedimentos padronizados repetitivos.</p>
+    <p><b>QUESTÕES CHAVES PARA AVALIAR SE HÁ A NECESSIDADE DE UTILIZAÇÃO DO SISTEMA</b></p>
+    <p>    1. Existe uma matriz de polivalência e versatilidade disponível no posto de trabalho, com informações de qual profissional
+        está habilitado a realizar cada procedimento do setor, quem pode ser um substituto e quem está autorizado a treinar os
+        novos operadores?</p>
+    <p>     2. Há uma ITP – Instrução Padronizada de Treinamento para os procedimentos repetitivos?</p>
+    <p>     3. Há método padronizado para treinar os funcionários nos postos de trabalho?</p>
+    <p>     4. Há Instrutores internos (Facilitadores/treinadores) devidamente capacitados na aplicação desta sistemática?</p>
+    <p>     5. O instrutor faz pós-treinamento e certificação para garantir a eficiência e eficácia do treinamento garantindo o aprendizado?</p>
+
+    </ol>
+    </p>
+    <br>
+    <p><cite>
+    “ Um chefe não deve, jamais, reclamar da atuação de um membro de sua equipe. Ele estará confessando a sua própria inabilidade
+    em treiná-lo. Ele é o único responsável pelas habilidades das pessoas que com ele trabalham”.
+    </cite></p>
+    <p style="text-align: right;">Vicente Falconi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+		</div>      
+		  <div style="font-size: 8pt;color:black;text-align: center;">
+        	System version: 1.0.190501
+        	- Made with <i class="fa fa-heart" style="color: red;"></i> in SC.
+        	- By <a href="http://bruner.eti.br" target="_new">Fernanda Kargel</div>      

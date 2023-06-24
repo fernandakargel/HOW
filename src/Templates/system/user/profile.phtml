@@ -1,0 +1,78 @@
+{% include 'system/header.phtml' %}
+{% include 'system/left-panel.phtml' %}
+{% include 'system/header-menu.phtml' %}
+
+<div class="animated fadeIn">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong class="card-title">Aqui você atualiza seus dados.</strong>
+                </div>
+                    <div class="card-body">
+                    
+                    	{% if page.message.message %}
+                    		<div class="alert alert-{{page.message.type}}" role="alert">
+                            	{{page.message.message}}
+                            	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                	<span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                    	{% endif %}
+                    
+                        <form method="post" action="/profile/save" id="easyForm" data-toggle="validator" role="form">
+                        <input type="hidden" name="uid" value="{{page.dataset.uid}}">
+                    	<div class="card">
+                              <div class="card-header">
+                                <strong>Usuário</strong>
+                              </div>
+                              <div class="card-body card-block">
+                                 <div class="row form-group">
+                            		<div class="col"><input type="text" name="name" placeholder="Nome" class="form-control" value="{{page.dataset.name}}" required></div>
+                          		</div>
+                              	<div class="row form-group">
+                            		<div class="col"><input type="email" name="email" placeholder="E-mail" class="form-control" required data-error="E-mail inválido." value="{{page.dataset.email}}" readonly="readonly"></div>
+                          		</div>
+                              	<div class="row form-group">
+                            		<div class="col">
+                            			<input type="password" name="password" id="inputPassword" placeholder="Senha" class="form-control" data-minlength="8" >
+                            			<div class="help-block">Mínimo de 8 caracteres.</div>
+                            		</div>
+                          		</div>    
+                              	<div class="row form-group">
+                              	
+                            		<div class="col"><input type="password" name="cpassword" placeholder="Confirme a senha" class="form-control" data-match="#inputPassword" data-match-error="Senha não confere." ></div>
+                          		</div>
+                             <div class="card-footer text-right">
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                  <i class="fa fa-dot-circle-o"></i> Salvar
+                                </button>
+                             </div>
+                        </div>
+                        </form>
+                    </div>     
+            
+            </div>
+           </div>
+        </div>
+    </div>
+  </div><!-- .animated -->
+</div><!-- .content -->
+
+
+
+<script src="{{ constant('SYS_URL') }}assets/js/validator.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/easyform.js"></script>
+
+<script>
+jQuery(function ($) {
+	var dataSet = {{page.dataset|json_encode()|raw}};
+	
+	EasyForm.init(dataSet);	
+	$('#easyForm').validator();
+});	
+</script>
+
+
+{% include 'system/footer.phtml' %}

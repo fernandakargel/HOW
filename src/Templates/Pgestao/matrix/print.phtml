@@ -1,0 +1,159 @@
+{% include 'system/header.phtml' %}
+<style type="text/css">
+    
+    @page {
+        size: 7in 9.25in;   /* auto is the initial value */
+        margin: 0;  /* this affects the margin in the printer settings */
+    }
+    
+    table { 
+        page-break-inside:auto;
+        border: 1px solid #dee2e6;
+        background-color: transparent; 
+        border-collapse: collapse; 
+        table-layout:fixed; 
+        table-layout: fixed;
+        width: 100%;
+        white-space: nowrap;
+    }
+    
+    tr { 
+        page-break-inside:avoid; 
+        page-break-after:auto;
+    }
+    
+    td { 
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+        border: 1px solid #dee2e6;
+        padding: 5px; 
+        word-wrap: break-word;  
+        white-space: normal;   
+        vertical-align: top;
+        font-size: 12pt;     
+     }
+     
+    .row-process{
+        width: 250px;
+        text-align: left;
+     }
+     
+    .row-staff{
+        width: 140px;
+        text-align: center;
+     }
+     
+     h6{
+         width: 140px;
+         white-space: break-word; 
+         overflow-wrap: break-word; 
+         word-wrap: break-word;
+         font-size: 12pt;
+     }
+</style>
+<div class="animated fadeIn">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong class="card-title"><h6 style="width: 100%;">Matriz de versatilidade: {{page.departmentInfo.name}}</h6></strong>
+                </div>
+            <div class="card-body" style="width: 100%;white-space: text-break;">
+            {% if page.message.message %}
+                <div class="alert alert-{{page.message.type}}" role="alert">
+                    {{page.message.message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+                  <div style="overflow: auto; white-space: nowrap;">     		
+                <table id="dataTable">
+                    <thead>
+                            {% for key,line in page.return %}
+                            	<tr>
+                                {% if key == 0 %}                                                 
+                                    	{% for column in line %}
+                                    		{% if column.photo == 1 %}
+                                        		<td class="row-process">
+                                        			<h6 class="text-center">{{column.name}}</h6><br>
+                                        			<div><image src="{{ constant('SYS_URL') }}images/skill-icons/0.png" style="width: 25px;" /> Não habilitado</div>
+                                        			<div><image src="{{ constant('SYS_URL') }}images/skill-icons/1.png" style="width: 25px;" /> Treinamento programado</div>
+                                        			<div><image src="{{ constant('SYS_URL') }}images/skill-icons/2.png" style="width: 25px;" /> Em treinamento</div>
+                                        			<div><image src="{{ constant('SYS_URL') }}images/skill-icons/3.png" style="width: 25px;" /> Habilitado / Certificado</div>
+                                        			<div><image src="{{ constant('SYS_URL') }}images/skill-icons/4.png" style="width: 25px;" /> Treinador</div>
+                                        		</td>
+                                        	{% else %}
+                                        		<td class="row-staff">
+                                        			<img src="{% if column.photo %}
+                                                   				{{column.photo}}
+                                                   			{%else%}
+                                                   				{{ constant('SYS_URL') }}images/photo-icon.svg
+                                                   			{% endif %}" style="height:150px; width:auto; max-width: 130px;">
+                                        			<h6>{{column.name}}</h6>
+                                        			<!-- <p>
+                                            			{{column.department}}
+                                            			 / {{column.role}}
+                                        			</p> -->
+                                        		</td>
+                                        	{% endif %}
+                                    	{% endfor %}
+                                
+                                {% else %}
+                                     
+                                    	{% for key, column in line %}
+                                    		{% if key == 0 %} 
+                                        		<td>
+                                            		{{column.name}}
+                                            		<!-- 
+                                            		<a href="#" data-toggle="tooltip" title="{% if skill.coach %}Treinado por {{skill.coach}} em {{skill.date}} | {% endif %} {{skill.description}}"><image src="{{ constant('SYS_URL') }}images/skill-icons/{{page.matrix[skill.id][staff.id]}}.png" style="width: 25px;"></a>
+                                            		 -->
+                                            	</td>
+                                            {% else %}
+                                            	<td class="text-center">
+                                            		<a href="#" data-toggle="tooltip" title="{% if column.coach %}Treinado por {{column.coach}} em {{column.date}} | {% endif %} {{column.name}} : {{column.description}}">
+                                            			<image src="{{ constant('SYS_URL') }}images/skill-icons/{{column.level}}.png" style="width: 25px;">
+                                            		</a>
+
+                                            	</td>
+                                            {% endif %}
+                                        		
+                                    	{% endfor %}
+
+                                {% endif %}  
+                                </tr>  	
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                </table>
+            	<br>
+           	</div> 
+            </div>
+           </div>
+        </div>
+    </div>
+  </div><!-- .animated -->
+</div><!-- .content -->
+
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/datatables.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/dataTables.bootstrap.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/dataTables.buttons.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/buttons.bootstrap.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/jszip.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/pdfmake.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/vfs_fonts.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/buttons.html5.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/buttons.print.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/buttons.colVis.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/dataTables.select.min.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/lib/data-table/datatables-init.js"></script>
+<script>
+	$("body").css("fontSize", "80%");
+	$("h5").css("fontSize", "120%");
+	$("p").css("fontSize", "80%");
+</script>
+<script src="{{ constant('SYS_URL') }}assets/js/easydatatable.js"></script>
+
+{% include 'system/footer.phtml' %}

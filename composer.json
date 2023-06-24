@@ -1,0 +1,44 @@
+{
+	"name": "slim/slim-skeleton",
+	"description": "A Slim Framework skeleton application for rapid development",
+	"keywords": [
+		"microframework",
+		"rest",
+		"router",
+		"psr7"
+	],
+	"homepage": "http://www.videosoft.com.br",
+	"license": "MIT",
+	"require": {
+		"php": ">=8.1.0",
+		"slim/slim": "^4.11",
+		"slim/php-view": "^2.0",
+		"monolog/monolog": "^1.17",
+		"palanik/corsslim": "dev-slim3",
+		"slim/twig-view": "^2.4",
+		"twig/twig": "^2.0",
+		"psr/http-message": "^1.0",
+		"bryanjhv/slim-session": "~3.0",
+		"twig/extensions": "^1.5",
+		"gumlet/php-image-resize": "1.9.*",
+		"slim/flash": "^0.4.0"
+	},
+	"require-dev": {
+		"phpunit/phpunit": ">=4.8 < 6.0"
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\": "tests/",
+			"Modules\\": "src/Modules",
+			"Bruner\\": "vendor/bruner/Bruner"
+		}
+	},
+	"config": {
+		"process-timeout": 0
+	},
+	"scripts": {
+		"start": "php -S localhost:8080 -t public",
+		"test": "phpunit",
+		"docs": "phpdoc -d ./src -t ./documentations/docs"
+	}
+}

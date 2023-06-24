@@ -1,0 +1,98 @@
+{% include 'system/header.phtml' %} 
+{% include 'system/left-panel.phtml'%} 
+{% include 'system/header-menu.phtml' %}
+
+<div class="animated fadeIn">
+	<div class="row">
+
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					<strong class="card-title">Aqui você cadastra ou atualiza dados de empresas.</strong>
+				</div>
+				<div class="card-body">
+
+					{% if page.message %}
+					<div class="alert alert-{{page.message.type}}" role="alert">
+						{{page.message.message}}
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					{% endif %}
+
+					<form method="post" autocomplete="off" action="/company/save" id="easyForm"
+						data-toggle="validator" role="form">
+						<input type="hidden" name="id" value="{{page.dataset.id}}">
+						<div class="card">
+							<div class="card-header">
+								<strong>Usuário</strong>
+							</div>
+							<div class="card-body card-block">
+								<div class="row form-group">
+									<div class="col">
+										<label for="name" class="form-control-label">Razão social:</label> <input
+											type="text" name="name" id="name" placeholder="Razão social"
+											class="form-control" value="{{page.dataset.name}}" required>
+									</div>
+								</div>
+								<div class="row form-group">
+									<div class="col">
+										<label for="trade" class="form-control-label">Nome fantasia:</label> <input
+											type="text" name="trade" id="trade" placeholder="Nome fantasia"
+											class="form-control" value="{{page.dataset.trade}}" required>
+									</div>
+								</div>
+								<div class="row form-group">
+									<div class="col">
+										<label for="number" class="form-control-label">CNPJ:</label> <input
+											type="text" name="number" id="number" placeholder="CNPJ"
+											class="form-control" value="{{page.dataset.number}}" max="99999999999999" maxlength="14" required>
+									</div>
+								</div>
+								<div class="row form-group">
+									<div class="col">
+										<label for="expire" class="form-control-label">Expira:</label> <input
+											type="date" name="expire" id="expire" placeholder="Expira em"
+											class="form-control" value="{{page.dataset.number}}" required>
+									</div>
+								</div>
+								<div class="card-footer text-right">
+									<button type="submit" class="btn btn-primary btn-sm">
+										<i class="fa fa-dot-circle-o"></i> Salvar
+									</button>
+								</div>
+							</div>
+					
+					</form>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<!-- .animated -->
+</div>
+<!-- .content -->
+
+
+<script src="{{ constant('SYS_URL') }}assets/js/jquery.mask.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/validator.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/easyform.js"></script>
+
+<script>
+jQuery(function ($) {
+
+	$('#number').mask('00.000.000/0000-00', {reverse: true});
+	
+    var dataSet = {{page.dataset|json_encode()|raw}};
+    
+    EasyForm.init(dataSet);
+    $('#easyForm').validator();
+});
+    </script>
+
+
+{% include 'system/footer.phtml' %}

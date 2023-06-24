@@ -1,0 +1,82 @@
+{% include 'system/header.phtml' %}
+{% include 'system/left-panel.phtml' %}
+{% include 'system/header-menu.phtml' %}
+
+<div class="animated fadeIn">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong class="card-title">Aqui você poderá importar informações para o sistema.</strong>
+                </div>
+            <div class="card-body">
+            
+            	<p>Este sistema possibilita a importação de informações de colaboradores, setores, cargos, fotos entre outros, para isso leia com atenção as instruções de cada método disponível.</p>
+            
+            	<br>
+            	<div class="sufee-alert alert with-close alert-warning alert-dismissible fade show">
+                    <span class="badge badge-pill badge-warning">Atenção</span>
+                       Os recursos de importação ainda não estão disponível para o uso.
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <br>
+				<div class="row">
+                        <div class="col" >
+                            <div class=" card">
+                                <div class="card-header">
+                                    <h4>1. Importar via arquivo CSV</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="default-tab">
+                                        <nav>
+                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Sobre</a>
+                                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Ajuda</a>
+                                                <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Importar</a>
+                                            </div>
+                                        </nav>
+                                        <div class="tab-content pl-3 pt-2" id="nav-tabContent">
+                                            <div class="tab-pane fade show active col" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                                <p>“CSV” significa Comma Separated Values, ou seja, um arquivo CSV é um arquivo de valores separados por vírgula. Esse formato de armazenamento é simples e agrupa informações de arquivos de texto em planilhas, usado para trocas de dados com um banco de dados ou uma planilha entre aplicativos.   .</p>
+                                            </div>
+                                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                                <p>Em breve adicionaremos informações sobre este processo.</p>
+                                            </div>
+                                            <div class="col tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                               <p>Utilize os botões abaixo para selecionar os arquivos de importação, não sabe o que é isso? Leai as instruções das abas anteriores.</p>
+                                               <form action="#">
+                                                   <label class="btn btn-primary">
+                                    					<span class="fa fa-upload"></span> &nbsp; Selecionar arquivo CSV
+                	                           			<input id="photo-file" type="file" accept="image/*" style="display: none;">
+                	                           		</label>	
+                                       			 	<label class="btn btn-primary">
+                                    					<span class="fa fa-upload"></span> &nbsp; Selecionar arquivo das fotos
+                	                           			<input id="photo-file" type="file" accept="image/*" style="display: none;">
+                	                           		</label>	
+                	                           		<button type="button" class="btn btn-primary btn-sm disabled" onclick="alert('Este recurso ainda não está disponível!')">
+                                  						<i class="fa fa-dot-circle-o"></i> Salvar
+                                					</button>
+                                               </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+           </div>
+        </div>
+    </div>
+  </div><!-- .animated -->
+</div><!-- .content -->
+
+<script>
+
+</script>
+<script src="{{ constant('SYS_URL') }}assets/js/easydatatable.js"></script>
+
+{% include 'system/footer.phtml' %}

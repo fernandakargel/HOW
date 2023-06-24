@@ -1,0 +1,132 @@
+{% include 'system/header.phtml' %}
+{% include 'system/left-panel.phtml' %}
+{% include 'system/header-menu.phtml' %}
+
+<div class="animated fadeIn">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong class="card-title">Aqui você cadastra ou atualiza dados de usuários.</strong>
+                </div>
+                    <div class="card-body">
+                    
+                    	{% if page.message %}
+                    		<div class="alert alert-{{page.message.type}}" role="alert">
+                            	{{page.message.message}}
+                            	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                	<span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                    	{% endif %}
+                    
+                        <form method="post" action="/user/save" id="easyForm" data-toggle="validator" role="form">
+                        <input type="hidden" name="uid" value="{{page.dataset.uid}}">
+                    	<div class="card">
+                              <div class="card-header">
+                                <strong>Usuário</strong>
+                              </div>
+                              <div class="card-body card-block">
+                                 <div class="row form-group">
+                            		<div class="col">
+                            			<label for="name" class="form-control-label">Nome:</label>
+                            			<input type="text" name="name" id="name" placeholder="Nome" class="form-control" value="{{page.dataset.name}}" required>
+                            		</div>
+                          		</div>
+                              	<div class="row form-group">
+                            		<div class="col">
+                            			<label for="email" class="form-control-label">E-mail:</label>
+                            			<input type="email" name="email" id="email" placeholder="E-mail" class="form-control" required data-error="E-mail inválido." value="{{page.dataset.email}}">
+                            		</div>
+                          		</div>
+                              	<div class="row form-group">
+                            		<div class="col">
+                            			<label for="inputPassword" class="form-control-label">Senha:</label>
+                            			<input type="password" name="password" id="inputPassword" placeholder="Senha" class="form-control" data-minlength="8" >
+                            			<div class="help-block">Mínimo de 8 caracteres.</div>
+                            		</div>
+                          		</div>    
+                              	<div class="row form-group">		
+                            		<div class="col">
+                            			<label for="cpassword" class="form-control-label">Confirme a senha:</label>
+                            			<input type="password" name="cpassword" id="cpassword" placeholder="Confirme a senha" class="form-control" data-match="#inputPassword" data-match-error="Senha não confere." >
+                            		</div>
+                          		</div>
+                          		<div class="row form-group">
+                          			<div class="col">
+                          				<label for="status" class="form-control-label">Status:</label>
+                              			<select name="status" id="status" class="form-control">
+                                            <option value="0">Desabilitado</option>
+                                            <option value="1" selected>Ativo</option>
+                                            <option value="2">Precisa de validação</option>
+                                            <option value="3">Bloqueado</option>
+                                        </select>
+                                    </div>
+                          		</div>     
+                           		<div class="row form-group">
+                               		<div class="col">
+                               			<label for="roles" class="form-control-label">Perfil:</label>
+                              			<select name="roles" id="roles" class="form-control">
+                              				{% for role, description in page.userRoles %}
+                              					<option value="{{role}}">{{description}}</option>
+                              				{% endfor %}
+                                        </select>
+                                    </div>
+                          		</div>  
+                          		{% if user.perfil == admin %}
+                           		<div class="row form-group">
+                               		<div class="col">
+                               			<label for="roles" class="form-control-label">Empresa:</label>
+                              			<select name="company" id="company" class="form-control">
+                              				{% for company in page.companies  %}
+                                           		 <option value="{{company.id}}">{{company.name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                          		</div>   
+                          		{% else %}
+                          			<input type="hidden" name="company" value="{{user.company}}">
+                          		{% endif %}                        		                        		                       		                      		
+                             </div>
+                             <div class="card-footer text-right">
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                  <i class="fa fa-dot-circle-o"></i> Salvar
+                                </button>
+                             </div>
+                        </div>
+                        </form>
+                    </div>     
+            
+            </div>
+           </div>
+        </div>
+    </div>
+  </div><!-- .animated -->
+</div><!-- .content -->
+
+
+
+<script src="{{ constant('SYS_URL') }}assets/js/validator.js"></script>
+<script src="{{ constant('SYS_URL') }}assets/js/easyform.js"></script>
+
+<script>
+jQuery(function ($) {
+    {% if page.dataset.status %}
+        $("#status").val("{{page.dataset.status}}");
+    {% endif %}    
+    
+    
+    {% if page.dataset.role %}
+    	$("#roles").val("{{page.dataset.role}}");
+    {% endif %} 
+
+	var dataSet = {{page.dataset|json_encode()|raw}};
+	
+	EasyForm.init(dataSet);	
+	$('#easyForm').validator();
+});	
+</script>
+
+
+{% include 'system/footer.phtml' %}

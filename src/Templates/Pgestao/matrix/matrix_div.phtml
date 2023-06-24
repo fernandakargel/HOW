@@ -1,0 +1,130 @@
+{% include 'system/header.phtml' %}
+{% include 'system/left-panel.phtml' %}
+{% include 'system/header-menu.phtml' %}
+
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12 overflow-auto" >
+            <div class="card ">
+                <div class="card-header">
+                    <strong class="card-title">Matriz de Polivalência e versatilidade</strong>
+                </div>
+            <div class="card-body">
+            {% if page.message.message %}
+                <div class="alert alert-{{page.message.type}}" role="alert">
+                    {{page.message.message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+            	<form method="post" action="/matrix/show">
+  				<div class="card">
+                  <div class="card-header">
+                    <strong>Filtro</strong>
+                  </div>
+                  <div class="card-body card-block">
+                     <div class="row form-group">
+                		<div class="input-group">
+                        <select name="department" id="department" class="form-control">
+                                <option value="0">Selecione uma das opções.</option>
+                                {% for department in page.department  %}
+                                	<option value="{{department.id}}">{{department.name}}</option>
+                                {% endfor %}
+                           </select>
+                        <div class="input-group-btn"><button class="btn btn-primary"><i class="fa fa-search"></i> Filtrar</button></div>
+                      </div>
+                      <div class="input-group">
+                         {% if page.print %}
+                            <button type="submit" style="margin: 5px;" class="btn btn-info btn-sm float-right" data-toggle="modal" formtarget="_blank" formaction="{{ constant('SYS_URL') }}matrix/print">
+                              <i class="fa fa-print"></i> Versão para impressão
+                            </button>
+                        {% endif %}
+                      </div>
+              		</div>        	
+                </div>   
+                </form>
+            </div>
+            
+               		
+                
+                    <div class="display: flex; overflow-x: auto;">
+                            {% for key,line in page.return %}
+                            	<div >
+                                {% if key == 0 %}                                                 
+                                    	{% for column in line %}
+                                    		{% if column.photo == 1 %}
+                                        		<div class="border" style="width: 500px;">
+                                        			<h5 class="text-center">{{column.name}}</h5>
+                                        			<div><image src="{{ constant('SYS_URL') }}images/skill-icons/0.png" style="width: 25px;" /> Não habilitador</div>
+                                        			<div><image src="{{ constant('SYS_URL') }}images/skill-icons/1.png" style="width: 25px;" /> Em treinamentor</div>
+                                        			<div><image src="{{ constant('SYS_URL') }}images/skill-icons/2.png" style="width: 25px;" /> Precisa de ajudar</div>
+                                        			<div><image src="{{ constant('SYS_URL') }}images/skill-icons/3.png" style="width: 25px;" /> Habilitado / Certificado</div>
+                                        			<div><image src="{{ constant('SYS_URL') }}images/skill-icons/4.png" style="width: 25px;" /> Treinador</div>
+                                        		</div>
+                                        	{% else %}
+                                        		<div class="border" style="float: left; width: 130px;">
+                                        			<img src="{% if column.photo %}
+                                                   				{{column.photo}}
+                                                   			{%else%}
+                                                   				{{ constant('SYS_URL') }}images/photo-icon.svg
+                                                   			{% endif %}" style="height:150px;width: auto;">
+                                        			<h5>{{column.name}}</h5>
+                                        			<!-- <p>
+                                            			{{column.department}}
+                                            			 / {{column.role}}
+                                        			</p> -->
+                                        		</div>
+                                        	{% endif %}
+                                    	{% endfor %}
+                                
+                                {% else %}
+                                     
+                                    	{% for key, column in line %}
+                                    		{% if key == 0 %} 
+                                        		<div class="border" style="width: 500px;">
+                                            		{{column.name}}
+                                            		<!-- 
+                                            		<a href="#" data-toggle="tooltip" title="{% if skill.coach %}Treinado por {{skill.coach}} em {{skill.date}} | {% endif %} {{skill.description}}"><image src="{{ constant('SYS_URL') }}images/skill-icons/{{page.matrix[skill.id][staff.id]}}.png" style="width: 25px;"></a>
+                                            		 -->
+                                            	</div>
+                                            {% else %}
+                                            	<div class="border" style="float: left; width: 130px;display: inline-block;white-space: nowrap;">
+                                            		<a href="#" data-toggle="tooltip" title="{% if column.coach %}Treinado por {{column.coach}} em {{column.date}} | {% endif %} {{column.name}} : {{column.description}}">
+                                            			<image src="{{ constant('SYS_URL') }}images/skill-icons/{{column.level}}.png" style="width: 25px;">
+                                            		</a>
+
+                                            	</div>
+                                            {% endif %}
+                                        		
+                                    	{% endfor %}
+
+                                {% endif %}  
+                                </div>  	
+                            {% endfor %}
+                        </tr>
+                    </div>
+                
+            
+            
+           </div>
+        </div>
+    </div>
+  </div><!-- .animated -->
+</div><!-- .content -->
+
+
+<script>
+jQuery(function ($) {
+
+    {% if page.filter.department %}
+	$("#department").val("{{page.filter.department}}");	
+	{% endif %} 
+	
+    	$('[data-toggle="tooltip"]').tooltip();
+    } );
+
+</script>
+
+
+{% include 'system/footer.phtml' %}
